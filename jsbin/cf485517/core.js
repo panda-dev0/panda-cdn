@@ -22191,7 +22191,7 @@
                             slideHtml += '</ul>';
                             return slideHtml;
                         }
-
+console.log(obj)
                         var videosArray = [];
                         Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'contents'), 'tabs'), 'content'), 'contents').contents.forEach(video => {
                             videoscount++
@@ -22423,12 +22423,555 @@
     var killall = 0 == getDeps();
     exec(killall ? 2 : 0);
   });
-  run("yt.www.watch.actions.share", reload);
-  run("yt.www.watch.actions.shareWithPlaylist", function() {
-    var tempCtx = go();
-    var dataTable = computed();
-    draw(tempCtx, dataTable);
-  });
+  function actionMenu(action, id) {
+        function hideActionMenu() {
+            document.querySelector('#watch-actions-' + id).classList.add('hid');
+            document.querySelector(`[data-button-action="yt.www.watch.actions.${id}"]`).classList.remove('yt-uix-button-toggled')
+            document.querySelector('#watch-actions-area-container').classList.add('hid');
+        }
+        if (action === 'show') {
+            if (id === 'stats') {
+                var Aaa = document.querySelector('#watch-actions-' + id)
+                var Aab = Aaa.getAttribute('data-loaded')
+                if (Aab !== "true") {
+                    if (localStorage.getItem('cr-exp_flags-socialblade') === "true") {
+                        Aaa.setAttribute('data-loaded', 'true')
+                        console.log(Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(ytInitialData, 'videoSecondaryInfoRenderer'), 'videoOwnerRenderer'), 'canonicalBaseUrl')))
+                        console.log(Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(ytCommand, 'watchEndpoint'), 'videoId')))
+                        console.log(localStorage.getItem('SBEmail'))
+                        console.log(localStorage.getItem('SBToken'))
+
+                        i(`//api.socialblade.com/v2/youtube/statistics?query=statistics&username=${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(ytInitialData, 'videoSecondaryInfoRenderer'), 'videoOwnerRenderer'), 'canonicalBaseUrl'))}&videoId=${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(ytCommand, 'watchEndpoint'), 'videoId'))}&email=${localStorage.getItem('SBEmail')}&token=${localStorage.getItem('SBToken')}`, {
+                            method: 'GET',
+                            responseType: 'JSON',
+                            i: function(response, data) {
+                                console.log('Success:', data);
+                                document.querySelector('#watch-actions-' + id).innerHTML = `<div id="watch-actions-stats" class="watch-actions-stats">
+                                <div class="stats-header">
+                            <h1>
+                        Video statistics    </h1>
+                          </div>
+                        
+                                  <div class="views">
+                              <h2>Views and discovery</h2>
+                              <div class="stats-box yt-uix-expander yt-uix-expander-collapsed">
+                                  <div class="stats-big-chart">
+                                    
+                                      <iframe width="460px" src="//socialblade.com/widget?v=1&amp;u=${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(data, 'channelid'))}" height="116px"></iframe>
+                                  </div>
+                        
+                                <div class="stats-views">
+                        <h3>${Number(Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(data, 'data'), 'views'))).toLocaleString("en-US")}</h3>Views
+                                </div>
+                        
+                                  <div class="horizontal-line hid"></div>
+                                  <h4 class="hid">Key discovery events
+                        </h4>
+                                    <div class="stats-discovery-events hid">
+                            <dl>
+                                  <dt class="stats-label">A</dt>
+                          <dd class="event">
+                            <p>            <span>First referral from Google search:</span>
+                                  <span class="extra">              <a rel="nofollow" href="http://web.archive.org/web/20120831215325mp_/http://www.google.com/search?q=gangnam%20style" dir="ltr">gangnam style</a>          </span>
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 20,457,951 views
+                              </p>
+                          </dd>
+                        
+                                  <dt class="stats-label">B</dt>
+                          <dd class="event">
+                            <p>            <span>First referral from:</span>
+                                  <span class="extra">              facebook.com          </span>
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 21,579,061 views
+                              </p>
+                          </dd>
+                        
+                            </dl>
+                              <dl class="extra-events">
+                                    <dt class="stats-label">C</dt>
+                          <dd class="event">
+                            <p>            <span>First embedded on:</span>
+                                  <span class="extra">              <a rel="nofollow" href="http://web.archive.org/web/20120831215325mp_/http://facebook.com" dir="ltr">facebook.com</a>          </span>
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 23,496,353 views
+                              </p>
+                          </dd>
+                        
+                                    <dt class="stats-label">D</dt>
+                          <dd class="event">
+                            <p>            <span>First referral from YouTube search:</span>
+                                  <span class="extra">              <a rel="nofollow" href="/web/20120831215325mp_/http://www.youtube.com/results?search_query=psy%20gangnam%20style" dir="ltr">psy gangnam style</a>          </span>
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 32,773,879 views
+                              </p>
+                          </dd>
+                        
+                                    <dt class="stats-label">E</dt>
+                          <dd class="event">
+                            <p>          First referral from a subscriber module
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 39,484,114 views
+                              </p>
+                          </dd>
+                        
+                                    <dt class="stats-label">F</dt>
+                          <dd class="event">
+                            <p>            <span>First referral from YouTube search:</span>
+                                  <span class="extra">              <a rel="nofollow" href="/web/20120831215325mp_/http://www.youtube.com/results?search_query=gangnam%20style" dir="ltr">gangnam style</a>          </span>
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 168,148,105 views
+                              </p>
+                          </dd>
+                        
+                                    <dt class="stats-label">G</dt>
+                          <dd class="event">
+                            <p>          First view from a mobile device
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 15, 2012 - 421,084,749 views
+                              </p>
+                          </dd>
+                        
+                                    <dt class="stats-label">H</dt>
+                          <dd class="event">
+                            <p>            <span>First referral from YouTube search:</span>
+                                  <span class="extra">              <a rel="nofollow" href="/web/20120831215325mp_/http://www.youtube.com/results?search_query=oppa%20gangnam%20style" dir="ltr">oppa gangnam style</a>          </span>
+                            </p>
+                        
+                        
+                              <p class="sub-data">Jul 22, 2012 - 22,872,446 views
+                              </p>
+                          </dd>
+                        
+                              </dl>
+                              <div class="stats-discovery-toggle">
+                                <a class="expand yt-uix-expander-head">
+                                  Show more events
+                        
+                                  <img src="http://web.archive.org/web/20120831215325im_///s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+                                </a>
+                                <a class="collapse yt-uix-expander-head">
+                                  Show less events
+                        
+                                  <img src="http://web.archive.org/web/20120831215325im_///s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+                                </a>
+                              </div>
+                          </div>
+                        
+                             </div>
+                            </div>
+                            <div class="clearL"></div>
+                        
+                            <div class="engagement-audience">
+                                <div class="stats-engagement">
+                                  <h2>Engagement</h2>
+                                  <div class="stats-box">
+                                    <table>
+                                      <tbody><tr>
+                                        <td class="stats-box-top stats-box-left">
+                                          <span style="font-size: x-large;">${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(data, 'grade'))}</span>
+                                          <span>
+                        <h4>Grade</h4>
+                                          </span>
+                                        </td>
+                                        <td class="stats-box-top stats-box-right">
+                                          <img class="stats-engagement-chart" src="http://web.archive.org/web/20120831215325im_/http://chart.apis.google.com/chart?cht=ls&amp;chs=80x18&amp;chf=bg,s,F4F4F4&amp;chco=5F8FC9&amp;chls=1&amp;chm=B,DCE6EDdd,0,0,0&amp;chd=t:0.0,0.1,0.3,0.4,0.6,0.9,1.2,1.5,2.1,2.8,3.1,3.8,4.5,5.2,5.9,6.6,7.3,8.1,9.1,10.2,10.9,12.2,13.5,15.0,16.4,18.1,19.7,21.6,23.6,25.9,27.2,29.7,32.3,35.3,38.5,41.5,44.4,47.8,50.7,53.1,54.2,56.8,58.9,60.6,62.4,64.3,65.7,67.0,68.4,69.7,70.2,71.2,72.5,73.5,74.5,75.5,76.6,77.4,78.2,79.1,79.6,80.2,80.9,81.8,82.6,83.2,83.9,84.7,85.3,85.9,86.2,87.2,87.8,88.4,89.1,89.7,90.2,90.7,91.2,91.6,91.8,92.3,92.8,93.3,93.8,94.7,95.3,95.9,96.3,96.8,97.2,97.6,98.0,98.4,98.7,99.0,99.4,99.7,100.0,100.0" alt="">
+                                          <span>
+                        <h4>${Number(Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(data, 'avgdailysubs'))).toLocaleString('en-US')}</h4>Avg. Daily Subscribers
+                                          </span>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="stats-box-bottom stats-box-left">
+                                          <img class="stats-engagement-chart" src="http://web.archive.org/web/20120831215325im_/http://chart.apis.google.com/chart?cht=ls&amp;chs=80x18&amp;chf=bg,s,F4F4F4&amp;chco=5F8FC9&amp;chls=1&amp;chm=B,DCE6EDdd,0,0,0&amp;chd=t:0.0,0.1,0.3,0.3,0.4,0.6,0.7,0.9,1.1,1.4,1.6,2.0,2.3,2.7,3.1,3.5,3.9,4.4,5.0,5.6,5.9,6.7,7.5,8.4,9.4,10.6,11.8,13.2,14.8,16.4,17.4,19.2,21.0,23.2,25.5,28.0,30.3,33.8,37.1,39.8,40.9,43.6,45.7,47.5,49.4,51.3,52.9,54.3,55.8,57.8,58.4,59.5,60.9,62.1,63.2,64.2,65.4,66.3,67.2,68.3,68.8,69.6,70.4,71.5,72.5,73.3,74.1,75.0,75.8,76.5,76.9,78.6,79.6,80.4,81.4,82.1,82.7,83.4,84.3,84.8,85.1,85.9,86.6,87.8,88.9,91.7,92.8,93.7,94.5,95.3,95.8,96.5,97.1,97.7,98.1,98.6,99.1,99.6,100.0,100.0" alt="">
+                                          <span>
+                        <h4>${Number(Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(data, 'subs'))).toLocaleString('en-US')}</h4>Subscribers
+                                          </span>
+                                        </td>
+                                        <td class="stats-box-bottom stats-box-right">
+                                          <img class="stats-engagement-chart" src="http://web.archive.org/web/20120831215325im_/http://chart.apis.google.com/chart?cht=ls&amp;chs=80x18&amp;chf=bg,s,F4F4F4&amp;chco=5F8FC9&amp;chls=1&amp;chm=B,DCE6EDdd,0,0,0&amp;chd=t:0.0,0.0,0.0,0.0,0.0,0.1,0.1,0.2,0.2,0.3,0.4,0.5,0.7,0.8,1.1,1.3,1.5,1.8,2.1,2.4,2.5,2.9,3.3,3.8,4.4,5.0,5.8,6.5,7.3,8.3,8.8,9.7,10.7,11.9,13.2,14.4,15.8,17.9,19.7,21.3,22.0,23.8,25.3,26.6,28.0,29.5,30.7,31.8,33.2,34.5,35.3,36.5,37.9,39.2,40.3,41.5,42.9,43.9,45.0,46.2,46.9,47.9,48.9,50.2,51.4,52.4,53.4,54.8,55.8,56.8,57.4,59.7,61.2,62.3,63.8,65.0,66.0,67.2,68.8,69.9,70.5,71.8,73.3,75.2,77.3,81.8,84.1,86.0,87.7,89.3,90.3,91.9,93.3,94.7,95.8,96.8,98.0,99.1,100.0,100.0" alt="">
+                                          <span>
+                        <h4>${Number(Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(data, 'avgdailyviews'))).toLocaleString('en-US')}</h4>Avg. Daily Views
+                                          </span>
+                                        </td>
+                                      </tr>
+                                    </tbody></table>
+                                  </div>
+                                </div>
+                        
+                              <div class="stats-audience">
+                                <h2>Ranks</h2>
+                                <div class="stats-box">
+                                    <dl>
+                                        <dd>
+                        Views rank: ${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(data, 'rank'), 'viewsrank'))}
+                                        </dd>
+                                        <dd>
+                        Country rank: ${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(data, 'rank'), 'countryrank'))}
+                                        </dd>
+                                    </dl>
+                                </div>
+                              </div>
+                            </div>
+                        
+                        
+                        
+                            <div class="clearL"></div>
+                          </div>`
+
+                            },
+                            onError: function(response, data) {
+                                console.error('Error:', response.status, data);
+                            },
+                            timeout: 5000 // Set timeout to 5 seconds
+                        });
+                    }
+                }
+            }/* else if (id === 'share') {
+                var Aaa = document.querySelector('#watch-actions-' + id)
+                var Aab = Aaa.getAttribute('data-loaded')
+                if (Aab !== "true") {
+                    let headers = {}
+                    if (ytcfg.get('LOGGED_IN') === false) {
+                        headers = {}
+                    } else {
+                        headers = {
+                            "authorization": Panda.document.Account.getSapisidhash(),
+                            "x-goog-authuser": ytcfg.get('SESSION_INDEX'),
+                            "x-goog-pageid": ytcfg.get('DELEGATED_SESSION_ID'),
+                            "x-goog-visitor-id": ytcfg.get('VISITOR_DATA')
+                        }
+                    }
+                    i("/youtubei/v1/share/get_share_panel", {
+                        method: "POST",
+                        urlParams: {
+                            key: ytcfg.get('INNERTUBE_API_KEY'),
+                            prettyPrint: 'false',
+                        },
+                        postBody: {
+                            "serializedSharedEntity": Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(ytInitialData, 'shareEntityServiceEndpoint'), 'serializedShareEntity')),
+                            "context": ytcfg.get('INNERTUBE_CONTEXT'),
+                        },
+                        headers: headers,
+
+                        i: function(value, obj) {
+                            console.log('Success:', data);
+                            document.querySelector('#watch-actions-' + id).setAttribute('data-loaded', 'true')
+                                document.querySelector('#watch-actions-' + id).innerHTML = `<div id="watch-actions-share" class="watch-actions-share">
+sranie<div class="share-panel">
+<div class="share-option-container ytg-box">
+    <div class="share-panel-url-container">
+<span class=" yt-uix-form-input-container yt-uix-form-input-text-container  yt-uix-form-input-non-empty">    <input class="yt-uix-form-input-text share-panel-url" name="share_url" value="https://youtu.be/JKHz_AYAOxA" data-video-id="JKHz_AYAOxA">
+</span>
+    <div class="share-panel-url-options yt-uix-expander yt-uix-expander-collapsed hid">
+<div class="yt-uix-expander-head">
+  <a class="share-panel-show-url-options">
+    <span class="collapsed-message">
+Options
+      <img class="arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+    </span>
+    <span class="expanded-message">
+Close
+      <img class="arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+    </span>
+  </a>
+</div>
+<ul class="yt-uix-expander-body share-options">
+    <li>
+      <label>
+        <input class="share-panel-hd" type="checkbox">
+HD link
+      </label>
+    </li>
+  <li>
+    <label>
+      <input class="share-panel-start-at" type="checkbox">
+Start at:
+    </label>
+    <input type="text" value="0:00" class="yt-uix-form-input-text share-panel-start-at-time">
+  </li>
+    <li>
+      <label>
+        <input class="share-panel-long-url" type="checkbox">
+Long link
+      </label>
+    </li>
+</ul>
+</div>
+
+</div>
+
+    <div class="share-panel-buttons yt-uix-expander yt-uix-expander-collapsed">
+<span class="share-panel-main-buttons">
+<button type="button" class="share-panel-embed yt-uix-button yt-uix-button-default" data-button-action="yt.www.watch.actions.share.embed" onclick=";return false;" role="button"><span class="yt-uix-button-content">Embed </span></button><button type="button" class="share-panel-email yt-uix-button yt-uix-button-default" data-button-action="yt.www.watch.actions.share.email" onclick=";return false;" role="button"><span class="yt-uix-button-content">Email </span></button>    </span>
+</div>
+
+
+            <div class="share-panel-services yt-uix-expander yt-uix-expander-collapsed clearfix">
+<ul class="share-group ytg-box">
+<li>
+<button onclick="window.open(&quot;//reddit.com/submit?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DJKHz_AYAOxA%26feature%3Dshare&amp;title=youtube%20shorts%20mnie%20przeros%C5%82y%20XD&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="REDDIT" title="Share to Reddit" class="yt-uix-tooltip share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Reddit" class="share-service-icon share-service-icon-reddit">
+  <span>Reddit</span>
+</button>
+</li>
+<li>
+<button onclick="window.open(&quot;http://twitter.com/intent/tweet?url=http%3A%2F%2Fyoutu.be%2FJKHz_AYAOxA&amp;text=youtube%20shorts%20mnie%20przeros%C5%82y%20XD%3A&amp;via=youtube&amp;related=Youtube%2CYouTubeTrends%2CYTCreators&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="TWITTER" title="Share to Twitter" class="yt-uix-tooltip share-service-button" data-tooltip-text="Share to Twitter">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Twitter" class="share-service-icon share-service-icon-twitter">
+  <span>Twitter</span>
+</button>
+</li>
+<li>
+<button onclick="window.open('//kspc.serv00.net/?videoopen&amp;url=https://www.youtube.com/watch?v=JKHz_AYAOxA&amp;text=youtube%20shorts%20mnie%20przeros%C5%82y%20XD')" data-service-name="GOOGLEPLUS" title="Share to Google+" class="yt-uix-tooltip share-service-button" data-tooltip-text="Share to Google+">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Google+" class="share-service-icon share-service-icon-googleplus">
+  <span>Google+</span>
+</button>
+</li>
+</ul>
+
+    <div class="yt-uix-expander-head">
+<a class="share-panel-show-more">
+  <span class="collapsed-message">
+More
+    <img class="arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+  </span>
+  <span class="expanded-message">
+Less
+    <img class="arrow" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="">
+  </span>
+</a>
+</div>
+
+  <div class="yt-uix-expander-body share-options-secondary">
+    <div class="secondary">
+      <div class="share-groups">
+        <ul>
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;TUMBLR&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9bZkp7q19f0%26feature%3Dshare&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="TUMBLR" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="tumblr." class="share-service-icon share-service-icon-reddit">
+  <span>tumblr.</span>
+</button>
+  <span>tumblr.</span>
+</li>
+
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;PINTEREST&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot; http://pinterest.com/pin/create/bookmarklet/?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9bZkp7q19f0%26feature%3Dshare&amp;title=PSY+-+GANGNAM+STYLE+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+M%2FV&amp;description=PSY+-+Gangnam+Style+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+%0A%E2%96%B6+NOW+available+on+iTunes%3A+http%3A%2F%2FSmarturl.it%2Fpsygangnam%0A%E2%96%B6+Official+PSY+Online+Store+US+%26+International+%3A+http%3A%2F%2Fpsy.shop.bravadousa.com%2F%0A%E2%96%B6+About+PSY+from+YG+Ent.%3A+http%3A%2F%2Fsmarturl.it%2FYGfamilyAboutPSY%0A%E2%96%B6+PSY%27s+Products+on+eBay%3A+http%3A%2F%2Fstores.ebay.com%2Fygentertainment%0A%E2%96%B6+YG-eShop%3A+http%3A%2F%2Fwww.ygeshop.com%0A+%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D...&amp;is_video=true&amp;media=http%3A%2F%2Fi2.ytimg.com%2Fvi%2F9bZkp7q19f0%2Fhqdefault.jpg&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="PINTEREST" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="pinterest" class="share-service-icon share-service-icon-pinterest">
+  <span>pinterest</span>
+</button>
+  <span>pinterest</span>
+</li>
+
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;BLOGGER&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http://www.blogger.com/blog-this.g?n=PSY+-+GANGNAM+STYLE+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+M%2FV&amp;source=youtube&amp;b=%3Ciframe+width%3D%22480%22+height%3D%22270%22+src%3D%22%2F%2Fwww.youtube.com%2Fembed%2F9bZkp7q19f0%22+frameborder%3D%220%22+allowfullscreen%3E%3C%2Fiframe%3E&amp;eurl=http%3A%2F%2Fi2.ytimg.com%2Fvi%2F9bZkp7q19f0%2Fhqdefault.jpg&quot;, {'height': 468,'width': 768,'scrollbars': true});return false;" data-service-name="BLOGGER" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Blogger" class="share-service-icon share-service-icon-blogger">
+  <span>Blogger</span>
+</button>
+  <span>Blogger</span>
+</li>
+
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;STUMBLEUPON&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9bZkp7q19f0%26feature%3Dshare&amp;title=PSY+-+GANGNAM+STYLE+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+M%2FV&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="STUMBLEUPON" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="StumbleUpon" class="share-service-icon share-service-icon-stumbleupon">
+  <span>StumbleUpon</span>
+</button>
+  <span>StumbleUpon</span>
+</li>
+
+        </ul>
+        <ul>
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;LINKEDIN&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http://www.linkedin.com/shareArticle?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9bZkp7q19f0%26feature%3Dshare&amp;title=PSY+-+GANGNAM+STYLE+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+M%2FV&amp;summary=PSY+-+Gangnam+Style+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+%0A%E2%96%B6+NOW+available+on+iTunes%3A+http%3A%2F%2FSmarturl.it%2Fpsygangnam%0A%E2%96%B6+Official+PSY+Online+Store+US+%26+International+%3A+http%3A%2F%2Fpsy.shop.bravadousa.com%2F%0A%E2%96%B6+About+PSY+from+YG+Ent.%3A+http%3A%2F%2Fsmarturl.it%2FYGfamilyAboutPSY%0A%E2%96%B6+PSY%27s+Products+on+eBay%3A+http%3A%2F%2Fstores.ebay.com%2Fygentertainment%0A%E2%96%B6+YG-eShop%3A+http%3A%2F%2Fwww.ygeshop.com%0A+%0A%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D...&amp;source=Youtube&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="LINKEDIN" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="LinkedIn" class="share-service-icon share-service-icon-linkedin">
+  <span>LinkedIn</span>
+</button>
+  <span>LinkedIn</span>
+</li>
+
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;MYSPACE&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http://www.myspace.com/Modules/PostTo/Pages/?t=PSY+-+GANGNAM+STYLE+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+M%2FV&amp;u=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9bZkp7q19f0%26feature%3Dshare&amp;l=1&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="MYSPACE" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="Myspace" class="share-service-icon share-service-icon-myspace">
+  <span>Myspace</span>
+</button>
+  <span>Myspace</span>
+</li>
+
+              <li>
+<button onclick="yt.tracking.shareVideo(&quot;REDDIT&quot;, &quot;9bZkp7q19f0&quot;,&quot;en_US&quot;, &quot;sharepanel&quot;);yt.window.popup(&quot;http://reddit.com/submit?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D9bZkp7q19f0%26feature%3Dshare&amp;title=PSY+-+GANGNAM+STYLE+%28%EA%B0%95%EB%82%A8%EC%8A%A4%ED%83%80%EC%9D%BC%29+M%2FV&quot;, {'height': 650,'width': 1024,'scrollbars': true});return false;" data-service-name="REDDIT" class="share-service-button">
+  <img src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif" alt="reddit" class="share-service-icon share-service-icon-reddit">
+  <span>reddit</span>
+</button>
+  <span>reddit</span>
+</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="share-panel-embed-container hid" style="">  <textarea class="yt-uix-form-textarea share-embed-code" onkeydown="if ((event.ctrlKey || event.metaKey) &amp;&amp; event.keyCode == 67) { yt.tracking.track('embedCodeCopied'); }">&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</textarea>
+<p class="share-embed-code-description">
+After making your selection, copy and paste the embed code above. The code changes based on your selection.
+</p>
+
+<hr>
+
+<ul class="share-embed-options">
+  <li>
+    <label>
+      <input type="checkbox" class="share-embed-option" name="show-related" checked="">
+Show suggested videos when the video finishes
+    </label>
+  </li>
+<li>
+  <label>
+    <input type="checkbox" class="share-embed-option" name="use-https">
+Use HTTPS
+    [<a href="https://www.google.com/support/youtube/bin/answer.py?answer=171780&amp;expand=UseHTTPS#HTTPS" target="_blank">?</a>]
+  </label>
+</li>
+<li>
+  <label>
+    <input type="checkbox" class="share-embed-option" name="delayed-cookies">
+Enable privacy-enhanced mode
+    [<a href="https://www.google.com/support/youtube/bin/answer.py?answer=171780&amp;expand=PrivacyEnhancedMode#privacy" target="_blank">?</a>]
+  </label>
+</li>
+  <li>
+    <label>
+      <input type="checkbox" class="share-embed-option" name="use-flash-code">
+Use old embed code
+      [<a href="https://www.google.com/support/youtube/bin/answer.py?answer=171780&amp;expand=UseOldEmbedCode#oldcode" target="_blank">?</a>]
+    </label>
+  </li>
+</ul>
+
+<hr>
+
+<form>
+<ul class="share-embed-size-list">
+  <li class="share-embed-size default wide selected">
+    <label>
+      <input type="radio" name="share-embed-size" value="default" class="share-embed-size-radio " data-width="560" data-height="315">
+      <span class="share-embed-size-name">560 × 315</span>
+      <span class="share-embed-size-box default"></span>
+    </label>
+  </li>
+  <li class="share-embed-size medium wide">
+    <label>
+      <input type="radio" name="share-embed-size" value="medium" class="share-embed-size-radio " data-width="640" data-height="360">
+      <span class="share-embed-size-name">640 × 360</span>
+      <span class="share-embed-size-box medium"></span>
+    </label>
+  </li>
+  <li class="share-embed-size large wide">
+    <label>
+      <input type="radio" name="share-embed-size" value="large" class="share-embed-size-radio " data-width="853" data-height="480">
+      <span class="share-embed-size-name">853 × 480</span>
+      <span class="share-embed-size-box large"></span>
+    </label>
+  </li>
+  <li class="share-embed-size hd720 wide">
+    <label>
+      <input type="radio" name="share-embed-size" value="hd720" class="share-embed-size-radio  hd" data-width="1280" data-height="720">
+      <span class="share-embed-size-name">1280 × 720</span>
+      <span class="share-embed-size-box hd720"></span>
+    </label>
+  </li>
+
+<li class="share-embed-size custom">
+  <label>
+    <input type="radio" name="share-embed-size" value="custom" class="share-embed-size-radio share-embed-size-radio-custom" data-width="-1" data-height="-1">
+    <span class="share-embed-size-name">
+Custom
+    </span>
+  </label>
+  <ul class="share-embed-customize">
+    <li>
+      <label>
+Width:
+        <input type="text" class="yt-uix-form-input-text share-embed-size-custom-width" maxlength="4"> px
+      </label>
+    </li>
+    <li>
+      <label>
+Height:
+        <input type="text" class="yt-uix-form-input-text share-embed-size-custom-height" maxlength="4"> px
+      </label>
+    </li>
+  </ul>
+</li>
+</ul>
+</form>
+</div>
+
+
+      <div class="share-panel-email-container hid" data-disabled="true">
+    <strong><a href="https://accounts.google.com/ServiceLogin?passive=true&amp;service=youtube&amp;hl=en_US&amp;uilel=3&amp;continue=http%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26feature%3Demail%26hl%3Den_US%26next%3Dhttp%253A%252F%252Fyoutu.be%252F9bZkp7q19f0%253Ffeature%253Dshare_email%26nomobiletemp%3D1">Sign in</a> or <a href="https://www.youtube.com/signup?next=http%3A%2F%2Fyoutu.be%2F9bZkp7q19f0%3Ffeature%3Dshare_email">sign up</a> now!
+</strong>
+
+</div>
+
+</div>
+
+  <span class="share-panel-hangout hid" style="display: none">
+    <img src="https://ssl.gstatic.com/s2/oz/images/stars/hangout/1/gplus-hangout-24x100-normal.png" alt="Google Hangout" class="share-panel-hangout-button" title="Watch with your friends.">
+  </span>
+</div>
+                          </div>`
+    
+                        }
+                    });
+                }
+            }*/
+            if (!document.querySelector('#watch-actions-' + id).classList.contains('hid') || document.querySelector(`[data-button-action="yt.www.watch.actions.${id}"]`).classList.contains('yt-uix-button-toggled')) {
+                hideActionMenu()
+            } else {
+                var Aa = document.querySelectorAll('.watch-actions-panel')
+                Aa.forEach(aA => {
+                    aA.classList.add('hid')
+                })
+                var Ab = document.querySelectorAll('#watch-actions .yt-uix-action-button')
+                Ab.forEach(bA => {
+                    bA.classList.remove('yt-uix-button-toggled')
+                })
+                document.querySelector('#watch-actions-area-container').classList.remove('hid');
+                document.querySelector(`[data-button-action="yt.www.watch.actions.${id}"]`).classList.add('yt-uix-button-toggled')
+                document.querySelector('#watch-actions-' + id).classList.remove('hid')
+                document.querySelector('#watch-actions-area-container').classList.remove('hid')
+            }
+
+        }
+    }
+
+    function closeActionMenu() {
+        document.querySelector('#watch-actions-area-container').classList.add('hid');
+        document.querySelectorAll('.watch-actions-panel').forEach(ba => { ba.classList.add('hid') })
+            // HOLY SHIT I DONT KNOW WHY BUT WHEN IT HAPPENED I LAUNGHED LIKE CRAZY  document.querySelectorAll('.yt-uix-action-button').forEach(aa => { aa.classList.add('hid') })
+        document.querySelectorAll('.yt-uix-action-button').forEach(aa => { aa.classList.remove('yt-uix-button-toggled') })
+    }
+  run('yt.www.watch.actions.share', function() { actionMenu('show', 'share') })
+    run('yt.www.watch.actions.share.embed', function() {
+        _togglediv(document.querySelector('.share-panel-embed-container'));
+        _hidediv(document.querySelector('.share-panel-email-container'))
+    })
   run("yt.www.watch.actions.addto", function(resource) {
     if (onProgress(resource) && !getEnumerableProperties()) {
       configure();
