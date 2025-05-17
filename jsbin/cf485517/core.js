@@ -22413,7 +22413,6 @@ console.log(obj)
       });
     }
   });
-  run("yt.www.watch.actions.flag", p);
   run("yt.www.watch.actions.like", function() {
     _init();
     /** @type {boolean} */
@@ -22671,47 +22670,14 @@ console.log(obj)
         _hidediv(document.querySelector('.share-panel-email-container'))
     })
     run('yt.www.watch.actions.hide', closeActionMenu)
-  run("yt.www.watch.actions.addto", function(resource) {
-    if (onProgress(resource) && !getEnumerableProperties()) {
-      configure();
-      resource = require("watch-actions-addto");
-      var i = push("VIDEO_ID");
-      if (beginsWithQuery) {
-        beginsWithQuery.la();
-      }
-      beginsWithQuery = new naturalSort(resource, i, function() {
-        resize("watch-actions-addto");
-      });
-    }
+  run("yt.www.watch.actions.addto", function() {
+    actionMenu('show', 'addto')
   });
-  run("yt.www.watch.actions.stats", function(inplace) {
-    if (onProgress(inplace)) {
-      configure();
-      i("/insight_ajax", {
-        format : "XML",
-        method : "GET",
-        n : {
-          action_get_statistics_and_data : 1,
-          v : push("VIDEO_ID")
-        },
-        /**
-         * @param {?} value
-         * @param {string} obj
-         * @return {undefined}
-         */
-        i : function(value, obj) {
-          parseOptions(obj.html_content);
-          var filter = require("stats-opt-out-chbox");
-          if (filter) {
-            addEvent(filter, "change", function() {
-              fetch(!filter.checked);
-            });
-          }
-        },
-        /** @type {function (?, ?): undefined} */
-        onError : setContent
-      });
-    }
+  run("yt.www.watch.actions.stats", function() {
+    actionMenu('show', 'stats')
+  });
+  run("yt.www.watch.actions.flag", function() {
+    actionMenu('show', 'flag')
   });
   run("yt.www.watch.actions.unlike", function() {
     _init();
