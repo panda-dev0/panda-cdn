@@ -22239,7 +22239,10 @@ console.log(obj)
                         //let slidesnum = (calculateNumberOfSlides(videoscount, itemsperslide) - 1).toString()
                         let videoCountText = ''
                         if (obj.header.pageHeaderRenderer) {
-                            videoCountText = Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'pageHeaderRenderer'), 'metadata'), 'metadataRows').metadataRows[1].metadataParts[1].text.content
+                          if (Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'pageHeaderRenderer'), 'metadata'), 'metadataRows').metadataRows[1]) {
+ videoCountText = Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'pageHeaderRenderer'), 'metadata'), 'metadataRows').metadataRows[1].metadataParts[1].text.content
+                          } else if (Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'pageHeaderRenderer'), 'metadata'), 'metadataRows').metadataRows[0])
+                            videoCountText = Panda.document.utils.findElement(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'pageHeaderRenderer'), 'metadata'), 'metadataRows').metadataRows[0].metadataParts[1].text.content
                         } else {
                             videoCountText = Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'header'), 'videosCountText'))
                         }
@@ -22255,7 +22258,7 @@ console.log(obj)
                         
                     </span>
                   
-                        <div class="yt-uix-slider-title"><h2><a href="${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'header'), 'canonicalBaseUrl'))}/videos">${videoCountText}
+                        <div class="yt-uix-slider-title"><h2><a href="${Panda.document.utils.createStringFromObject(Panda.document.utils.findElement(Panda.document.utils.findElement(obj, 'channelMetadataRenderer'), 'externalId'))}/videos">${videoCountText}
                    »</a></h2></div>
                       </div>
                       <div class="yt-uix-slider-body">
