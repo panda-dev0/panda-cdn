@@ -22669,6 +22669,10 @@ console.log(obj)
         _togglediv(document.querySelector('.share-panel-embed-container'));
         _hidediv(document.querySelector('.share-panel-email-container'))
     })
+    run('yt.www.watch.actions.share.email', function() {
+        _hidediv(document.querySelector('.share-panel-embed-container'));
+        _togglediv(document.querySelector('.share-panel-email-container'))
+    })
     run('yt.www.watch.actions.hide', closeActionMenu)
   run("yt.www.watch.actions.addto", function() {
     actionMenu('show', 'addto')
@@ -22678,6 +22682,9 @@ console.log(obj)
   });
   run("yt.www.watch.actions.flag", function() {
     actionMenu('show', 'flag')
+  });
+run("yt.www.watch.actions.loggedout", function() {
+    actionMenu('show', 'logged-out')
   });
 
   function waitForElm(selector) {
