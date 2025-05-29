@@ -22684,7 +22684,7 @@ console.log(obj)
     actionMenu('show', 'flag')
   });
 run("yt.www.watch.actions.loggedout", function() {
-    actionMenu('show', 'logged-out')
+    actionMenu('show', 'loggedout')
   });
 
   function waitForElm(selector) {
